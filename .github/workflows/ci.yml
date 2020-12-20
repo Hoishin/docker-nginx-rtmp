@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - uses: docker/setup-buildx-action@v1
+      - uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.CR_TOKEN }}
+      - uses: crazy-max/ghaction-docker-meta@v1
+        id: docker_meta
+        with:
+          images: ghcr.io/hoishin/nginx-rtmp
+          tag-sha: true
+      - uses: docker/build-push-action@v2
+        with:
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
