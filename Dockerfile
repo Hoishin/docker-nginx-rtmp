@@ -33,8 +33,6 @@ WORKDIR /usr/local/nginx
 
 COPY nginx.conf ./conf/nginx.conf
 
-RUN ./sbin/nginx -t
-
-EXPOSE 1935
+EXPOSE 1935/tcp
 
 CMD [ "./sbin/nginx" ]
