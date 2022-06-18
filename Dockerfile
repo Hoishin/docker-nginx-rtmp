@@ -1,4 +1,4 @@
-FROM alpine:3.12 AS build
+FROM alpine:3.16 AS build
 
 ENV NGINX_VERSION 1.19.6
 ENV NGINX_RTMP_VERSION 1.2.1
@@ -20,7 +20,7 @@ RUN make
 RUN make install
 
 
-FROM alpine:3.12
+FROM alpine:3.16
 
 RUN apk add --no-cache pcre openssl zlib
 
