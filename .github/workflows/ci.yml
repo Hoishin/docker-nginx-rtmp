@@ -29,11 +29,11 @@ jobs:
             rtainjapan/nginx-rtmp
             ghcr.io/rtainjapan/nginx-rtmp
           tag-sha: true
-      - uses: docker/login-action@v1
+      - uses: docker/login-action@v2
         with:
           username: hoishin
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: docker/login-action@v1
+      - uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: hoishin
