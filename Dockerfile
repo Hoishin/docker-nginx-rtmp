@@ -1,4 +1,4 @@
-FROM alpine:3.16 AS build
+FROM alpine:3.18 AS build
 
 ENV NGINX_VERSION 1.23.1
 
@@ -19,7 +19,7 @@ RUN make
 RUN make install
 
 
-FROM alpine:3.16
+FROM alpine:3.18
 
 RUN apk add --no-cache pcre openssl zlib
 
